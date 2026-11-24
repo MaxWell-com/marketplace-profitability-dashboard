@@ -1,0 +1,9 @@
+// Our finished-goods stock by 1C code on the latest snapshot date, summed over the selected own warehouses
+EVALUATE
+FILTER(
+SUMMARIZECOLUMNS(
+    'Спр - Номенклатура'[Код],
+    TREATAS({"Склад № 1", "Склад № 2а (8-6 мес)", "Склад № 2б (5-4 мес)", "Склад № 2в (3-1 мес)"}, 'Спр - Склады'[Склад]),
+    "stock", CALCULATE([# В наличии], '## Аналитика во времени'[Показатели] = "LastAvailableDate"),
+    "free", CALCULATE([# Доступно], '## Аналитика во времени'[Показатели] = "LastAvailableDate")
+), NOT ISBLANK([Код]))

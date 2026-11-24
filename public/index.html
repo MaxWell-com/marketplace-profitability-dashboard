@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E-comm: единый отчет</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="hdr">
+  <!-- Decorative arcs, matching the header style of the sibling dashboards -->
+  <div class="header-deco" aria-hidden="true">
+    <svg class="header-rings" viewBox="0 0 820 200" preserveAspectRatio="xMaxYMin slice">
+      <defs>
+        <linearGradient id="rg0" gradientUnits="userSpaceOnUse" x1="0" y1="200" x2="820" y2="0"><stop offset="0" stop-color="#FF5C00"/><stop offset="1" stop-color="#FFB380"/></linearGradient>
+        <linearGradient id="rg1" gradientUnits="userSpaceOnUse" x1="0" y1="200" x2="820" y2="0"><stop offset="0" stop-color="#FF8533"/><stop offset="1" stop-color="#FFD9BC"/></linearGradient>
+        <linearGradient id="rg2" gradientUnits="userSpaceOnUse" x1="0" y1="200" x2="820" y2="0"><stop offset="0" stop-color="#FFB380"/><stop offset="1" stop-color="#FFE7D4"/></linearGradient>
+        <linearGradient id="rg3" gradientUnits="userSpaceOnUse" x1="0" y1="200" x2="820" y2="0"><stop offset="0" stop-color="#FFC59B"/><stop offset="1" stop-color="#FFEBDA"/></linearGradient>
+      </defs>
+      <circle cx="520" cy="470" r="430" fill="none" stroke="url(#rg0)" stroke-width="38" stroke-dasharray="1125.7 1576.0" opacity=".75" transform="rotate(205 520 470)"/>
+      <circle cx="700" cy="360" r="300" fill="none" stroke="url(#rg1)" stroke-width="30" stroke-dasharray="680.7 1204.3" opacity=".6" transform="rotate(215 700 360)"/>
+      <circle cx="400" cy="620" r="580" fill="none" stroke="url(#rg2)" stroke-width="26" stroke-dasharray="1214.7 2429.5" opacity=".45" transform="rotate(210 400 620)"/>
+      <circle cx="880" cy="300" r="200" fill="none" stroke="url(#rg3)" stroke-width="24" stroke-dasharray="558.5 698.1" opacity=".5" transform="rotate(195 880 300)"/>
+    </svg>
+  </div>
+  <div class="head-top">
+    <div class="head-title">
+      <h1>Единый отчет E-comm</h1>
+      <div class="head-scope">OZON, Wildberries и прочие клиенты подразделений E-comm</div>
+    </div>
+    <div class="head-right"><div class="head-updated">Данные на <b id="asof">…</b></div></div>
+  </div>
+  <nav id="nav" class="pagenav" aria-label="Страницы отчета"></nav>
+</header>
+<main class="wrap">
+  <div class="page-head">
+    <h2 id="page-title">Загрузка…</h2>
+    <p class="sub" id="page-sub"></p>
+  </div>
+  <div id="filters" class="filters" hidden></div>
+  <div id="page"></div>
+</main>
+<div class="tip" id="tip"></div>
+<script src="charts.js"></script>
+<script src="xlsx.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+// WB sales by card (sales report from the cube): month x nm_id -> revenue incl. VAT and units, from 2025.
+// The model no longer has a marketplace card dimension (it was unlinked and hidden): nm_id is parsed from the
+// [FK | Карточки маркетплейсов] key of the form «<seller account GUID> | <SKU>».
+EVALUATE
+VAR f = FILTER(
+SUMMARIZECOLUMNS(
+    'Спр - Календарь'[Год], 'Спр - Календарь'[Порядковый номер Месяца],
+    'Факт - ecom - Ежедневный финансовый отчет'[FK | Карточки маркетплейсов],
+    TREATAS({"Wildberries"}, 'Спр - ecom - Маркетплейсы'[Маркетплейс]),
+    FILTER(ALL('Спр - Календарь'[Год]), 'Спр - Календарь'[Год] >= 2025),
+    "rev", CALCULATE(SUM('Факт - ecom - Ежедневный финансовый отчет'[Сумма начисления]), 'Факт - ecom - Ежедневный финансовый отчет'[Статья расходов] = "Выручка"),
+    "qty", CALCULATE(SUM('Факт - ecom - Ежедневный финансовый отчет'[Количество sku]), 'Факт - ecom - Ежедневный финансовый отчет'[Статья расходов] = "Выручка")
+), NOT ISBLANK([rev]) || NOT ISBLANK([qty]))
+VAR s = ADDCOLUMNS(f, "SKU в системе маркетплейса",
+    VAR k = [FK | Карточки маркетплейсов] VAR p = SEARCH(" | ", k, 1, 0) RETURN IF(p > 0, MID(k, p + 3, 100)))
+RETURN GROUPBY(s, 'Спр - Календарь'[Год], 'Спр - Календарь'[Порядковый номер Месяца], [SKU в системе маркетплейса],
+    "rev", SUMX(CURRENTGROUP(), [rev]), "qty", SUMX(CURRENTGROUP(), [qty]))

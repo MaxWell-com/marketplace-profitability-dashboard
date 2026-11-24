@@ -1,0 +1,21 @@
+{
+  "name": "marketplace-profitability-dashboard",
+  "version": "1.0.0",
+  "description": "E-comm profitability dashboard for marketplaces (Wildberries, Ozon) and online clients: gross-profit cascade, sales, advertising, marketplace stock, plan vs actual — Node.js/Express, demo data included",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test",
+    "standalone": "node scripts/standalone.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mssql": "^11.0.1"
+  },
+  "license": "MIT"
+}

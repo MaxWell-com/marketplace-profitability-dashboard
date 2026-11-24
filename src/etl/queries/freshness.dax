@@ -1,0 +1,9 @@
+// Data boundaries of the facts
+EVALUATE
+ROW(
+    "sales_max", CALCULATE(MAX('Факт - Валовая прибыль'[Дата]), 'Факт - Валовая прибыль'[Дата] <= TODAY()),
+    "mp_max", MAX('Факт - ecom - Ежедневный финансовый отчет'[Дата операции]),
+    "ads_max", MAX('Факт - ecom - Рекламные кампании'[Дата]),
+    "stock_max", CALCULATE(MAX('Спр - Календарь'[Дата]), 'Факт - Остатки и доступность товаров'),
+    "today", TODAY()
+)

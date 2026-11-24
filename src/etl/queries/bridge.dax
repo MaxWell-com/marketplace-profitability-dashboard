@@ -1,0 +1,15 @@
+// Bridge: marketplace card -> 1C code, derived from the charges fact.
+// The model no longer has a marketplace card dimension (it was unlinked and hidden): the fact row's product comes via
+// [FK | Номенклатура] -> 'Спр - Номенклатура', and the marketplace SKU is parsed from the [FK | Карточки маркетплейсов]
+// key of the form «<seller account GUID> | <SKU>».
+EVALUATE
+VAR f = CALCULATETABLE(
+    SUMMARIZE('Факт - ecom - Ежедневный финансовый отчет',
+        'Спр - ecom - Маркетплейсы'[Маркетплейс],
+        'Факт - ecom - Ежедневный финансовый отчет'[FK | Карточки маркетплейсов],
+        'Спр - Номенклатура'[Код]),
+    NOT ISBLANK('Факт - ecom - Ежедневный финансовый отчет'[FK | Номенклатура]), 'Спр - Календарь'[Год] >= 2025
+)
+VAR s = ADDCOLUMNS(f, "SKU в системе маркетплейса",
+    VAR k = [FK | Карточки маркетплейсов] VAR p = SEARCH(" | ", k, 1, 0) RETURN IF(p > 0, MID(k, p + 3, 100)))
+RETURN GROUPBY(s, 'Спр - ecom - Маркетплейсы'[Маркетплейс], [SKU в системе маркетплейса], 'Спр - Номенклатура'[Код])

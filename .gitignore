@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+!.env.example
+# parsed profitability files cache (local, contains data)
+.cache/
+# standalone single-file export (scripts/standalone.js) embeds the data
+dist/
+*.log
+.DS_Store

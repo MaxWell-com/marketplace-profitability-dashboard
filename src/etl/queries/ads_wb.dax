@@ -1,0 +1,16 @@
+// WB and OZON ad campaigns: month x campaign x 1C product.
+// After a model change the ads fact is linked to 'Спр - Номенклатура' (FK | Номенклатура -> business key) and no
+// longer carries the marketplace card key: a campaign's product is the 1C code directly, no SKU -> code bridge.
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Спр - Календарь'[Год], 'Спр - Календарь'[Порядковый номер Месяца],
+    'Спр - ecom - Маркетплейсы'[Маркетплейс],
+    'Факт - ecom - Рекламные кампании'[ID рекламной кампании],
+    'Спр - Номенклатура'[Код],
+    "views", SUM('Факт - ecom - Рекламные кампании'[Показы]),
+    "clicks", SUM('Факт - ecom - Рекламные кампании'[Клики]),
+    "cart", SUM('Факт - ecom - Рекламные кампании'[Добавлений в корзину]),
+    "cost", SUM('Факт - ecom - Рекламные кампании'[Затраты, руб.]),
+    "orders", SUM('Факт - ecom - Рекламные кампании'[Заказы, шт.]),
+    "orders_rub", SUM('Факт - ecom - Рекламные кампании'[Заказы, руб.])
+)
